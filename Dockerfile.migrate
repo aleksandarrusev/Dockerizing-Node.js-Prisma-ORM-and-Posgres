@@ -1,6 +1,5 @@
 FROM node:22-alpine
 
-# Required for schema generation
 RUN apk add --no-cache openssl
 
 WORKDIR /app
@@ -9,12 +8,10 @@ COPY package*.json ./
 
 COPY prisma ./prisma
 
-RUN npm install
-
-RUN npm install -g nodemon
-
-COPY . .
+COPY wait-for.sh .
 
 RUN chmod +x ./wait-for.sh
 
-EXPOSE 3005
+RUN npm install
+
+RUN npx prisma generate

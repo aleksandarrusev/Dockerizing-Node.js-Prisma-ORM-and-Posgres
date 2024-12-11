@@ -14,9 +14,8 @@ app.get('/todos', async (req, res) => {
 })
 
 app.post('/todos', async (req, res) => {
-    const { title } = req.body;
     const post = await prisma.todo.create({
-        data: { title }
+        data: { ...req.body }
     })
     res.json(post)
 })
