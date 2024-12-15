@@ -10,5 +10,4 @@ datasource db {
 model Todo {
   id     Int    @id @default(autoincrement())
   title  String
-  status String @default("backlog")
 }

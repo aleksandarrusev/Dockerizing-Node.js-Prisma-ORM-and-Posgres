@@ -23,7 +23,7 @@ services:
       - postgres
     networks:
       - default-network
-    command: ./wait-for.sh postgres:5432 -- npx prisma db push
+    command: ./wait-for.sh postgres:5432 -- npx prisma migrate dev --name ${PRISMA_MIGRATION_NAME}
     volumes:
       - .:/app
       - node_modules:/app/node_modules
