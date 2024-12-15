@@ -1,15 +1,18 @@
 FROM node:22-alpine
 
+# Required for schema generation
 RUN apk add --no-cache openssl
 
 WORKDIR /app
 
 COPY package*.json ./
 
+# Copy the prisma schema before npm install
 COPY prisma ./prisma
 
+# This script allow us to detect when Postgres is running so that we can run our application without errors
+# Source: https://github.com/eficode/wait-for/blob/master/wait-for
 COPY wait-for.sh .
-
 RUN chmod +x ./wait-for.sh
 
 RUN npm install
